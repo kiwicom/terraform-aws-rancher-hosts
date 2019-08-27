@@ -1,0 +1,11 @@
+#!/bin/bash -ex
+mkdir -p /etc/skypicker
+echo 'rancher-host'>/etc/skypicker/InstanceType
+echo 'prod'>/etc/skypicker/Stage
+echo 'master'>/etc/skypicker/AnsibleBranch
+sudo mkdir -p /etc/ansible/facts.d
+echo '[default]'>/etc/ansible/facts.d/prefs.fact
+echo 'rancher_environment=${env_name}'>>/etc/ansible/facts.d/prefs.fact
+echo 'registerhosts=${registration_url}'>>/etc/ansible/facts.d/prefs.fact
+echo 'rancherlabels=&role=common&aws.account_id=${aws_account_id}&aws.account_alias=${aws_account_alias}'>>/etc/ansible/facts.d/prefs.fact
+${additional_user_data}
